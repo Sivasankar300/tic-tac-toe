@@ -2,9 +2,10 @@ const gameBoard = (function () {
     let gameBoardArray = [];
 
     //Creating the Gameboard
+
     let cells = 9;
     for (cells; cells > 0; cells--) {
-        gameBoardArray.push("E");
+        gameBoardArray.push("");
     }
     return gameBoardArray;
 })();
@@ -94,7 +95,7 @@ function newGame() {
     Check the win condition
     console log the tabel */
     turnAssignment();
-      playerInput = parseInt(window.prompt(`Which position woufd you like to mark ${currentPlayer.playerName}`));
+      playerInput = parseInt(window.prompt(`Which position would you like to mark ${currentPlayer.playerName}`));
 
       moveVaildity();
       //To break the loop with an Invalid input
@@ -106,9 +107,7 @@ function newGame() {
       gameBoard[playerInput] = currentPlayer.playerMarker;
       console.table(gameBoard);
       winCondition();
-
-
-
+      displayController();
     }
 }
 
@@ -116,4 +115,16 @@ function newPlayer(playerName, playerMarker, turn) {
     return { playerName, playerMarker, turn };
 }
 
-newGame();
+
+const content = document.querySelector(".content");
+const boxes = document.querySelectorAll(".boxes");
+function displayController(){
+  count=0;
+  boxes.forEach(item => {
+    item.textContent = gameBoard[count];
+    count++
+  })
+
+}
+displayController();
+console.table(gameBoard);
