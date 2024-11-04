@@ -1,103 +1,119 @@
-let gameBoardArray = [];
+const gameBoard = (function () {
+    let gameBoardArray = [];
 
-function gameBoard() {
-  function boxes(marker) {
-    return { marker };
-  }
-
-  //Creating the Gameboard
-  let cells = 9;
-  for (cells; cells > 0; cells--) {
-    let box = boxes("E");
-    gameBoardArray.push(box);
-  }
-}
-
-
- function gameLogic() {
-  //Checking win conditions
-  let rowOne = gameBoardArray[0,1,2];
-  let rowTwo = gameBoardArray[3,4,5];
-  let rowThree = gameBoardArray[6,7,8];
-
-  let colOne = gameBoardArray[0,3,8];
-  let colTwo = gameBoardArray[1,4,6];
-  let colThree = gameBoardArray[2,5,8];
-
-  let rowsCols = [rowOne,rowTwo,rowThree,colOne,colTwo,colThree]
-
-  rowsCols.map(item =>{
-    if(item.marker === "X"){
-      return console.log("Player one WON");
-      
-    } else if(item.marker === "O"){
-      return console.log("Player two WON");
-
+    //Creating the Gameboard
+    let cells = 9;
+    for (cells; cells > 0; cells--) {
+        gameBoardArray.push("E");
     }
-  })
- 
-} 
-
+    return gameBoardArray;
+})();
 
 let player1 = newPlayer("Ajax", "X", 0);
 let player2 = newPlayer("NotAjax", "O", 0);
 
-function newTurn() {
-  
+function newGame() {
+    
+    let gameOver = 0;
+    let currentPlayer;
+    let playerInput;
 
-  if (player1.turn <= player2.turn) {
-    playerInput = window.prompt(
-      "Which position would you like to mark Player1"
-    );
-
-    //To prevent moves being made on already marked tiles
-    if (
-      "X" === gameBoardArray[playerInput].marker ||
-      "O" === gameBoardArray[playerInput].marker
-    ) {
-      return console.log("Invalid move");
+    function moveVaildity() {
+        //To prevent moves being made on already marked tiles
+        if ("X" === gameBoard[playerInput] || "O" === gameBoard[playerInput]) {
+            currentPlayer.turn--;
+            turnAssignment();            
+            return console.log("Invalid move");
+        }
     }
 
-    gameBoardArray[playerInput] = { marker: "X" };
-    player1.turn++;
-    console.table(gameBoardArray);
-    gameLogic();
-
-  } 
-  
-  else {
-    playerInput = window.prompt(
-      "Which position would you like to mark Player2",
-      "Enter a number +1"
-    );
-
-    if (
-      "X" === gameBoardArray[playerInput].marker ||
-      "O" === gameBoardArray[playerInput].marker
-    ) {
-      return console.log("Invalid move");
+    function turnAssignment(){
+      currentPlayer = player1;
+        if (player1.turn > player2.turn) {
+            currentPlayer = player2;
+        }
     }
 
-    gameBoardArray[playerInput] = { marker: "0" };
-    player2.turn++;
-    console.table(gameBoardArray);
-    gameLogic();
+    function winCondition() {
+      //row1
+      if(gameBoard[0] === "X" && gameBoard[1] === "X" && gameBoard[2] === "X"){console.log(`${currentPlayer.playerName} has won`)
+        gameOver++}
+          else if(gameBoard[0] === "O" && gameBoard[1] === "O" && gameBoard[2] === "O"){console.log(`${currentPlayer.playerName} has won`)
+          gameOver++}
+      //row2
+      if(gameBoard[3] === "X" && gameBoard[4] === "X" && gameBoard[5] === "X"){console.log(`${currentPlayer.playerName} has won`)
+        gameOver++}
+          else if(gameBoard[3] === "O" && gameBoard[4] === "O" && gameBoard[5] === "O"){console.log(`${currentPlayer.playerName} has won`)
+          gameOver++}
+      //row3
+      if(gameBoard[6] === "X" && gameBoard[7] === "X" && gameBoard[8] === "X"){console.log(`${currentPlayer.playerName} has won`)
+        gameOver++}
+          else if(gameBoard[6] === "O" && gameBoard[7] === "O" && gameBoard[8] === "O"){console.log(`${currentPlayer.playerName} has won`)
+          gameOver++}
+
+      //Checking cols and dialognals, col 1
+      if(gameBoard[0] === "X" && gameBoard[3] === "X" && gameBoard[6] === "X"){console.log(`${currentPlayer.playerName} has won`)
+      gameOver++}
+        else if(gameBoard[0] === "O" && gameBoard[3] === "O" && gameBoard[6] === "O"){console.log(`${currentPlayer.playerName} has won`)
+        gameOver++}
+        //col 2
+      if(gameBoard[1] === "X" && gameBoard[4] === "X" && gameBoard[7] === "X"){console.log(`${currentPlayer.playerName} has won`)
+      gameOver++}
+        else if(gameBoard[1] === "O" && gameBoard[4] === "O" && gameBoard[7] === "O"){console.log(`${currentPlayer.playerName} has won`)
+        gameOver++}
+        //col 3
+      if(gameBoard[2] === "X" && gameBoard[5] === "X" && gameBoard[8] === "X"){console.log(`${currentPlayer.playerName} has won`)
+      gameOver++}
+        else if(gameBoard[2] === "O" && gameBoard[5] === "O" && gameBoard[8] === "O"){console.log(`${currentPlayer.playerName} has won`)
+        gameOver++}
+        //diag 1
+      if(gameBoard[0] === "X" && gameBoard[4] === "X" && gameBoard[8] === "X"){console.log(`${currentPlayer.playerName} has won`)
+      gameOver++}
+        else if(gameBoard[0] === "O" && gameBoard[3] === "O" && gameBoard[6] === "O"){console.log(`${currentPlayer.playerName} has won`)
+        gameOver++}
+        //diag 2
+      if(gameBoard[0] === "X" && gameBoard[3] === "X" && gameBoard[6] === "X"){console.log(`${currentPlayer.playerName} has won`)
+      gameOver++}
+        else if(gameBoard[0] === "O" && gameBoard[3] === "O" && gameBoard[6] === "O"){console.log(`${currentPlayer.playerName} has won`)
+        gameOver++}
+      
+        else if(!gameBoard.includes("E")){
+          console.log("It's a Tie!")
+          gameOver++
+        }
+      }
+    
+    
+    while (gameOver === 0) {
+      /* Assign currentplayer
+    Ask user for input
+    Check if move is valid
+    Check if input is a number
+    Increment player's turn
+    Assign the input to the gameBoard
+    Check the win condition
+    console log the tabel */
+    turnAssignment();
+      playerInput = parseInt(window.prompt(`Which position woufd you like to mark ${currentPlayer.playerName}`));
+
+      moveVaildity();
+      //To break the loop with an Invalid input
+      if (isNaN(playerInput)) {
+        break;
+    }
+
+      currentPlayer.turn++;
+      gameBoard[playerInput] = currentPlayer.playerMarker;
+      console.table(gameBoard);
+      winCondition();
 
 
-  }
+
+    }
 }
-gameBoard();
-newTurn();
-newTurn();
-newTurn();
-newTurn();
-newTurn();
-newTurn();
-
 
 function newPlayer(playerName, playerMarker, turn) {
-  return { playerName, playerMarker, turn };
+    return { playerName, playerMarker, turn };
 }
 
-
-
+newGame();
