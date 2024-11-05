@@ -2,54 +2,94 @@
     Josh's Custom CSS Reset
     https://www.joshwcomeau.com/css/custom-css-reset/
     */
-    *, *::before, *::after {
-        box-sizing: border-box;
-    }
-    * {
-        margin: 0;
-    }
-    body {
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-    }
-    img, picture, video, canvas, svg {
-        display: block;
-        max-width: 100%;
-    }
-    input, button, textarea, select {
-        font: inherit;
-    }
-    p, h1, h2, h3, h4, h5, h6 {
-        overflow-wrap: break-word;
-    }
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+}
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
 
-    /* My own CSS reset */
+/* My own CSS reset */
 
-    ul{
+ul {
     list-style-type: none; /* Remove bullets */
     padding: 0; /* Remove padding */
-    }
+}
 
-    textarea:focus, input:focus{
-        outline: none; /* Removes the outline on form Inputs */
-    }
+textarea:focus,
+input:focus {
+    outline: none; /* Removes the outline on form Inputs */
+}
 
-    html,body{
-        height:100%
-    }
+html,
+body {
+    height: 100%;
+}
 
-.content{
-    display:flex;
-    flex-direction:row;
-    height:100%;
+.content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
+.row1,
+.row2,
+.row3 {
+    display: flex;
     align-items: center;
     justify-content: center;
 }
-.boxes{
+
+.square {
     border: 1px solid black;
     font-size: 50px;
     text-align: center;
-    width:75px;
-    height:75px;
+    width: 75px;
+    height: 75px;
+}
+
+.header {
+    display:grid;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.info {
+    text-align: center;
+    margin-top:50px;
+    margin-bottom:20px;
+    font-size: larger;
+    font-family:'Courier New', Courier, monospace
 }
