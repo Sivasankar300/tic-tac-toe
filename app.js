@@ -1,255 +1,272 @@
-let gameBoard = (function () {
-    let gameBoardArray = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+const gameBoard = (function () {
+    let array = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
 
-    return gameBoardArray;
+    const emptyArray = () =>
+        (array = [" ", " ", " ", " ", " ", " ", " ", " ", " "]);
+    const getArray = () => array;
+
+    const markSquare = function (input) {
+        getArray()[input] = playersFn.getCurrentPlayer().marker;
+    };
+    return { getArray, markSquare, emptyArray, getArray };
 })();
 
-const newGame = (function () {
-    const content = document.querySelector(".content");
-    const square = document.querySelectorAll(".square");
-    const info = document.querySelector(".info");
-    const startGameButton = document.querySelector(".startGame");
-    const player1Name = document.querySelector("#player1");
-    const player2Name = document.querySelector("#player2");
-    const submitForm = document.querySelector("#submitForm");
-    const form = document.querySelector("form");
-    const formParent = document.querySelector(".nameEntry")
-
-
-    let player1;
-    let player2;
-
-    let gameOver = 0;
-    let currentPlayer;
+function gameController() {
+    let gameOver = 1;
     let playerInput;
+    let input = () => playerInput;
 
-    function turnAssignment() {
-        currentPlayer = player1;
-        if (player1.turn > player2.turn) {
-            currentPlayer = player2;
-        }
-    }
+    const getGameOver = () => gameOver;
+
+    const gameStateSwitch = () => {
+        return (gameOver = gameOver === 1 ? 0 : 1);
+    };
 
     function winCondition() {
+        const display = displayController;
         //row1
+
         if (
-            gameBoard[0] === "X" &&
-            gameBoard[1] === "X" &&
-            gameBoard[2] === "X"
+            gameBoard.getArray()[0] === "X" &&
+            gameBoard.getArray()[1] === "X" &&
+            gameBoard.getArray()[2] === "X"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         } else if (
-            gameBoard[0] === "O" &&
-            gameBoard[1] === "O" &&
-            gameBoard[2] === "O"
+            gameBoard.getArray()[0] === "O" &&
+            gameBoard.getArray()[1] === "O" &&
+            gameBoard.getArray()[2] === "O"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         }
         //row2
         else if (
-            gameBoard[3] === "X" &&
-            gameBoard[4] === "X" &&
-            gameBoard[5] === "X"
+            gameBoard.getArray()[3] === "X" &&
+            gameBoard.getArray()[4] === "X" &&
+            gameBoard.getArray()[5] === "X"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         } else if (
-            gameBoard[3] === "O" &&
-            gameBoard[4] === "O" &&
-            gameBoard[5] === "O"
+            gameBoard.getArray()[3] === "O" &&
+            gameBoard.getArray()[4] === "O" &&
+            gameBoard.getArray()[5] === "O"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         }
         //row3
         else if (
-            gameBoard[6] === "X" &&
-            gameBoard[7] === "X" &&
-            gameBoard[8] === "X"
+            gameBoard.getArray()[6] === "X" &&
+            gameBoard.getArray()[7] === "X" &&
+            gameBoard.getArray()[8] === "X"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         } else if (
-            gameBoard[6] === "O" &&
-            gameBoard[7] === "O" &&
-            gameBoard[8] === "O"
+            gameBoard.getArray()[6] === "O" &&
+            gameBoard.getArray()[7] === "O" &&
+            gameBoard.getArray()[8] === "O"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         }
 
         //Checking cols and dialognals, col 1
         else if (
-            gameBoard[0] === "X" &&
-            gameBoard[3] === "X" &&
-            gameBoard[6] === "X"
+            gameBoard.getArray()[0] === "X" &&
+            gameBoard.getArray()[3] === "X" &&
+            gameBoard.getArray()[6] === "X"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         } else if (
-            gameBoard[0] === "O" &&
-            gameBoard[3] === "O" &&
-            gameBoard[6] === "O"
+            gameBoard.getArray()[0] === "O" &&
+            gameBoard.getArray()[3] === "O" &&
+            gameBoard.getArray()[6] === "O"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         }
         //col 2
         else if (
-            gameBoard[1] === "X" &&
-            gameBoard[4] === "X" &&
-            gameBoard[7] === "X"
+            gameBoard.getArray()[1] === "X" &&
+            gameBoard.getArray()[4] === "X" &&
+            gameBoard.getArray()[7] === "X"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         } else if (
-            gameBoard[1] === "O" &&
-            gameBoard[4] === "O" &&
-            gameBoard[7] === "O"
+            gameBoard.getArray()[1] === "O" &&
+            gameBoard.getArray()[4] === "O" &&
+            gameBoard.getArray()[7] === "O"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         }
         //col 3
         else if (
-            gameBoard[2] === "X" &&
-            gameBoard[5] === "X" &&
-            gameBoard[8] === "X"
+            gameBoard.getArray()[2] === "X" &&
+            gameBoard.getArray()[5] === "X" &&
+            gameBoard.getArray()[8] === "X"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         } else if (
-            gameBoard[2] === "O" &&
-            gameBoard[5] === "O" &&
-            gameBoard[8] === "O"
+            gameBoard.getArray()[2] === "O" &&
+            gameBoard.getArray()[5] === "O" &&
+            gameBoard.getArray()[8] === "O"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         }
         //diag 1
         else if (
-            gameBoard[0] === "X" &&
-            gameBoard[4] === "X" &&
-            gameBoard[8] === "X"
+            gameBoard.getArray()[0] === "X" &&
+            gameBoard.getArray()[4] === "X" &&
+            gameBoard.getArray()[8] === "X"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         } else if (
-            gameBoard[0] === "O" &&
-            gameBoard[4] === "O" &&
-            gameBoard[8] === "O"
+            gameBoard.getArray()[0] === "O" &&
+            gameBoard.getArray()[4] === "O" &&
+            gameBoard.getArray()[8] === "O"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         }
         //diag 2
         else if (
-            gameBoard[2] === "X" &&
-            gameBoard[4] === "X" &&
-            gameBoard[6] === "X"
+            gameBoard.getArray()[2] === "X" &&
+            gameBoard.getArray()[4] === "X" &&
+            gameBoard.getArray()[6] === "X"
         ) {
-            displayResult("won");
-            gameOver++;
+            display.displayResult("won");
+            gameStateSwitch();
         } else if (
-            gameBoard[2] === "O" &&
-            gameBoard[4] === "O" &&
-            gameBoard[6] === "O"
+            gameBoard.getArray()[2] === "O" &&
+            gameBoard.getArray()[4] === "O" &&
+            gameBoard.getArray()[6] === "O"
         ) {
-            displayResult("won");
-            gameOver++;
-        } else if (!gameBoard.includes(" ")) {
-            displayResult("tie");
-            gameOver++;
-        }
-
-        function displayResult(type) {
-            switch (type) {
-                case "won":
-                    info.textContent = `${currentPlayer.playerName} has 'won'! Press start game for a new round`;
-                    break;
-                case "tie":
-                    info.textContent = `It's a tie!
-                    Press start game for a new round`;
-                    break;
-            }
+            display.displayResult("won");
+            gameStateSwitch();
+        } else if (!gameBoard.getArray().includes(" ")) {
+            display.displayResult("tie");
+            gameStateSwitch();
         }
     }
 
-    startGameButton.addEventListener("click",() => {
-      //Also restarts the game
-      gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+    function gameReset() {
+        gameBoard.emptyArray();
+        gameOver = 0;
+        playersFn.resetPlayer();
+    }
 
-      square.forEach(item => {
-        item.textContent = " ";
-      })
-      player1.turn = 0;
-      player2.turn = 0;
-      gameOver = 0;
-      
-      let fiveSecond = 5000;
-      setTimeout(info.textContent = " ", fiveSecond);
-    })
+    const playRound = (pointer) => {
+        playerInput = pointer;
+        //vaildating the input
 
-    const nameEntry = (function(){
-      submitForm.addEventListener("click",(event) => {
-        event.preventDefault()
-        player1 = newPlayer(`${player1Name.value}`, "X",0);
-        player2 = newPlayer(`${player2Name.value}`, "O",0);
-        clearInput();
-    })
-        function clearInput(){
-        formParent.removeChild(form);
-        }
-    }())
+        if (gameOver > 0) return true;
+        if (
+            gameBoard.getArray()[playerInput] === "X" ||
+            gameBoard.getArray()[playerInput === "O"]
+        )
+            return true;
+        gameBoard.markSquare(playerInput);
+        winCondition();
+    };
+    return { input, playRound, getGameOver, gameStateSwitch, gameReset };
+}
 
-    const userInput = (function () {
-        content.addEventListener("click", (event) => {
-            if(gameOver>0){
-                return;
-            }
-            
-            turnAssignment();
-            //Gets position of the square
-            pointer = event.target.classList[1];
+const playersFn = (function () {
+    const playersArray = [
+        {
+            name: "Player One",
+            marker: "X",
+        },
+        {
+            name: "Player Two",
+            marker: "O",
+        },
+    ];
+    let currentPlayer = playersArray[0];
 
-            playerInput = pointer;
+    function nameEntry(playerOneName, playerTwoName) {
+        playersArray[0].name = playerOneName;
+        playersArray[1].name = playerTwoName;
+    }
+    const resetPlayer = () => (currentPlayer = playersArray[0]);
+    const getCurrentPlayer = () => currentPlayer;
+    const switchPlayerTurn = () => {
+        currentPlayer =
+            currentPlayer === playersArray[0]
+                ? playersArray[1]
+                : playersArray[0];
+    };
 
-            //TO-DO: Fix bug where if too many invalid moves are made, then the turn assignment stops working
+    return { nameEntry, getCurrentPlayer, switchPlayerTurn, resetPlayer };
+})();
 
-            //Move vaildity
-            if (
-                "X" === gameBoard[playerInput] ||
-                "O" === gameBoard[playerInput]
-            ) {
-                if (currentPlayer.turn) currentPlayer.turn--;
-                turnAssignment();
-                return console.log("Invalid move");
-            }
+const displayController = (function () {
+    const content = document.querySelector(".content");
+    const squares = document.querySelectorAll(".square");
+    const info = document.querySelector(".info");
+    const gameResetBtn = document.querySelector(".startGame");
+    const player1Name = document.querySelector("#player1");
+    const player2Name = document.querySelector("#player2");
+    const submitForm = document.querySelector("#submitForm");
+    const form = document.querySelector("form");
+    const formParent = document.querySelector(".nameEntry");
 
-            event.target.textContent = currentPlayer.playerMarker;
-            gameBoard[pointer] = currentPlayer.playerMarker;
+    const gameFn = gameController();
 
-            currentPlayer.turn++;
-
-            winCondition();
+    //Get values from gameStart()
+    gameResetBtn.addEventListener("click", () => {
+        squares.forEach((item) => {
+            item.textContent = " ";
         });
+        gameFn.gameReset();
+        info.textContent = " ";
+    });
 
-
+    const formButton = (function () {
+        submitForm.addEventListener("click", (event) => {
+            event.preventDefault();
+            clearInput();
+            playersFn.nameEntry(player1Name.value, player2Name.value);
+            gameFn.gameStateSwitch();
+        });
+        function clearInput() {
+            formParent.removeChild(form);
+        }
     })();
 
+    const displayResult = (type) => {
+        switch (type) {
+            case "won":
+                info.textContent = `${
+                    playersFn.getCurrentPlayer().name
+                } has won! Press start game for a new round`;
+                break;
+            case "tie":
+                info.textContent = `It's a tie!
+                Press start game for a new round`;
+                break;
+        }
+    };
 
+    content.addEventListener("click", (event) => {
+        //getting the position of the square
+        pointer = event.target.classList[1];
+        if (gameFn.playRound(pointer)) {
+            return; //exits if invalidInput or game is over
+        }
+        event.target.textContent = playersFn.getCurrentPlayer().marker;
+        playersFn.switchPlayerTurn();
+    });
 
-    function newPlayer(playerName, playerMarker, turn) {
-        return { playerName, playerMarker, turn };
-    }
-
-    function displayController() {
-        count = 0;
-        square.forEach((item) => {
-            item.textContent = gameBoard[count];
-            count++;
-        });
-    }
+    return { displayResult };
 })();

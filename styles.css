@@ -79,17 +79,16 @@ body {
 }
 
 .header {
-    display:grid;
-    align-items:center;
+    display: grid;
+    align-items: center;
     justify-content: center;
     flex-direction: column;
-
 }
 
 .info {
     text-align: center;
-    margin-top:50px;
-    margin-bottom:20px;
+    margin-top: 50px;
+    margin-bottom: 20px;
     font-size: larger;
-    font-family:'Courier New', Courier, monospace
+    font-family: "Courier New", Courier, monospace;
 }
