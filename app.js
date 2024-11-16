@@ -172,7 +172,7 @@ function gameController() {
         if (gameOver > 0) return true;
         if (
             gameBoard.getArray()[playerInput] === "X" ||
-            gameBoard.getArray()[playerInput === "O"]
+            gameBoard.getArray()[playerInput] === "O"
         )
             return true;
         gameBoard.markSquare(playerInput);
